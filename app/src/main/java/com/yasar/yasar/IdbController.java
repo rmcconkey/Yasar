@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by r_mcconkey on 3/24/15.
  */
+
 public interface IdbController {
 
     public long insertContact(Contact contact);
