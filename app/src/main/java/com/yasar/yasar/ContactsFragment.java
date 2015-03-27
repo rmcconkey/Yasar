@@ -27,6 +27,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 
 public class ContactsFragment extends Fragment implements OnItemClickListener,
@@ -110,6 +113,12 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
         respondListAdapter = new RespondListAdapter(getActivity(), respondList);
 
         respondListView.setAdapter(respondListAdapter);
+
+        // Create ad view
+        AdView mAdView = (AdView) getActivity().findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
     }
 
     private void readContactData() {
@@ -201,7 +210,7 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
 
         splitResult = number.split("\\D");
 
-        if (splitResult.length<1) {
+        if (splitResult.length < 1) {
             Log.d(TAG, "Bad value passed to formatPhoneNumber()");
             return null;
         }

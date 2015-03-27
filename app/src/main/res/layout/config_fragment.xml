@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+              xmlns:ads="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <CheckBox
             android:id="@+id/checkBox1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="checked" />
+            android:onClick="checked"/>
 
         <EditText
             android:id="@+id/editText1"
@@ -21,19 +22,19 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Enter a responce"
-            android:text="Auto SMS: Busy at work" />
+            android:text="Auto SMS: Busy at work"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <CheckBox
             android:id="@+id/checkBox2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="checked" />
+            android:onClick="checked"/>
 
         <EditText
             android:id="@+id/editText2"
@@ -42,18 +43,18 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Enter a responce"
-            android:text="Auto SMS: Driving" />
+            android:text="Auto SMS: Driving"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <CheckBox
             android:id="@+id/checkBox3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="checked" />
+            android:onClick="checked"/>
 
         <EditText
             android:id="@+id/editText3"
@@ -62,7 +63,17 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Enter a responce"
-            android:text="Auto SMS: Sleeping" />
+            android:text="Auto SMS: Sleeping"/>
     </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+    </com.google.android.gms.ads.AdView>
 
 </LinearLayout>

@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class ConfigFragment extends Fragment {
 
     private CheckBox firstCB, secondCB, thirdCB;
@@ -45,6 +48,11 @@ public class ConfigFragment extends Fragment {
 
         sp = getActivity().getSharedPreferences(Constants.SHAREDPREFNAME, 0);
         editor = sp.edit();
+
+        // Create ad view
+        AdView mAdView = (AdView) getActivity().findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

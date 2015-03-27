@@ -15,7 +15,9 @@ import android.util.Log;
 
 public class DBController extends SQLiteOpenHelper implements IdbController {
 
-	private static final int DB_VERSION = 1;
+    private final String TAG = ((Object) this).getClass().getSimpleName();
+
+    private static final int DB_VERSION = 1;
 
 	private static final String TABLE_NAME = "contacts";
 	private static final String FIELD_ID = "id";
@@ -87,7 +89,7 @@ public class DBController extends SQLiteOpenHelper implements IdbController {
 		SQLiteDatabase database = this.getWritableDatabase();
 		String deleteQuery = "DELETE FROM " + TABLE_NAME + " where " + FIELD_ID
 				+ "='" + id + "'";
-		Log.d("query", deleteQuery);
+		Log.d(TAG, deleteQuery);
 		database.execSQL(deleteQuery);
 		database.close();
 	}
@@ -96,7 +98,7 @@ public class DBController extends SQLiteOpenHelper implements IdbController {
 	public void deleteAll() {
 		SQLiteDatabase database = this.getWritableDatabase();
 		String deleteQuery = "DELETE * FROM " + TABLE_NAME;
-		Log.d("query", deleteQuery);
+		Log.d(TAG, deleteQuery);
 		database.execSQL(deleteQuery);
 		database.close();
 	}
