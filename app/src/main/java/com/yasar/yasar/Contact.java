@@ -5,42 +5,47 @@
 package com.yasar.yasar;
 
 public class Contact {
-	
-	private int id;
-	private String name;
-	private String number;
-	
-	public Contact(int id, String name, String number) {
-		this.id = id;
-		this.name = name;
-		this.number = number;
-	}
 
-	public Contact() {
-	}
+    private int id;
+    private String name;
+    private String number;
 
-	public int getId() {
-		return id;
-	}
+    public Contact(int id, String name, String number) {
+        this.id = id;
+        this.name = name;
+        this.number = number;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Contact() {
+    }
 
-	public String getName() {
-		return name;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getNumber() {
-		return number;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setNumber(String number) {
-		this.number = number;
-	}	
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String toString() {
+        return Integer.toString(id) + " " +
+                name + " " + number;
+    }
 
 }

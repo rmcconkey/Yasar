@@ -12,6 +12,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +32,8 @@ import java.util.ArrayList;
 public class ContactsFragment extends Fragment implements OnItemClickListener,
         OnItemSelectedListener {
 
+    private final String TAG = ((Object) this).getClass().getSimpleName();
+
     private View rootView;
 
     private DBController controller;
@@ -47,8 +50,12 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
     private ArrayList<Contact> contacts;
     // List of contacts to auto respond
     private ArrayList<Contact> respondList;
+
     // Currently selected contact from autocomplete list
     private int selected = -1;
+
+    // Phone number to search through contacts for
+    private String searchPhoneNumber;
 
     public static ContactsFragment newInstance() {
         ContactsFragment fragment = new ContactsFragment();
@@ -78,7 +85,7 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
 
         // Create adapter for AutoComplete
         dropdownAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.dropdown_item, R.id.dropdownNameTextView, new ArrayList<String>());
+                R.layout.dropdown_item, R.id.dropdownTextView, new ArrayList<String>());
 
         // Set minimum number of chars to search
         acTextView.setThreshold(3);
@@ -116,14 +123,15 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
         if (cursor.moveToFirst()) {
             do {
                 contacts.add(new Contact(cursor.getInt(cursor
-                        .getColumnIndex(Phone.CONTACT_ID)), cursor
-                        .getString(cursor.getColumnIndex(Phone.DISPLAY_NAME)),
-                        cursor.getString(cursor.getColumnIndex(Phone.NUMBER))));
+                        .getColumnIndex(Phone.CONTACT_ID)),
+                        cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME)),
+                        formatPhoneNumber(cursor.getString(cursor.getColumnIndex(Phone.NUMBER)))));
                 dropdownAdapter.add(cursor.getString(cursor
                         .getColumnIndex(Phone.DISPLAY_NAME)) + "\n" +
                         cursor.getString(cursor.getColumnIndex(Phone.NUMBER)));
             } while (cursor.moveToNext());
         }
+        cursor.close();
     }
 
     private OnClickListener addContact() {
@@ -136,9 +144,7 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
                     Toast.makeText(getActivity(), "Please fill phone number",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    contacts.get(selected).setNumber(
-                            formatPhoneNumber(contacts.get(selected)
-                                    .getNumber()));
+                    contacts.get(selected).setNumber(contacts.get(selected).getNumber());
                     row = controller.insertContact(contacts.get(selected));
                     respondListAdapter.add(contacts.get(selected));
                     acTextView.setText("");
@@ -152,8 +158,7 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position,
-                               long id) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // TODO Auto-generated method stub
 
     }
@@ -172,10 +177,11 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
         int position = -1;
 
         // Name to search through contacts
-        String searchName = "" + arg0.getItemAtPosition(index);
+        searchPhoneNumber = formatPhoneNumber(arg0.getItemAtPosition(index).toString());
+        Log.d(TAG, searchPhoneNumber);
 
         for (int i = 0; i < contacts.size(); i++) {
-            if (contacts.get(i).getName().equals(searchName)) {
+            if (contacts.get(i).getNumber().equals(searchPhoneNumber)) {
                 position = i;
                 break;
             }
@@ -194,6 +200,11 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
         String[] splitResult;
 
         splitResult = number.split("\\D");
+
+        if (splitResult.length<1) {
+            Log.d(TAG, "Bad value passed to formatPhoneNumber()");
+            return null;
+        }
 
         for (int i = 0; i < splitResult.length; i++) {
             result += splitResult[i];
