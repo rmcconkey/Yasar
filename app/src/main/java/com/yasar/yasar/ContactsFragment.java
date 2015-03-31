@@ -115,7 +115,7 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
         respondListView.setAdapter(respondListAdapter);
 
         // Create ad view
-        AdView mAdView = (AdView) getActivity().findViewById(R.id.adView);
+        AdView mAdView = (AdView) getActivity().findViewById(R.id.adView2);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -131,12 +131,10 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
         // Populate the list of contacts that will serve as data for our list.
         if (cursor.moveToFirst()) {
             do {
-                contacts.add(new Contact(cursor.getInt(cursor
-                        .getColumnIndex(Phone.CONTACT_ID)),
+                contacts.add(new Contact(cursor.getInt(cursor.getColumnIndex(Phone.CONTACT_ID)),
                         cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME)),
                         formatPhoneNumber(cursor.getString(cursor.getColumnIndex(Phone.NUMBER)))));
-                dropdownAdapter.add(cursor.getString(cursor
-                        .getColumnIndex(Phone.DISPLAY_NAME)) + "\n" +
+                dropdownAdapter.add(cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME)) + "\n" +
                         cursor.getString(cursor.getColumnIndex(Phone.NUMBER)));
             } while (cursor.moveToNext());
         }

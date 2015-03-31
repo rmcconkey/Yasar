@@ -50,7 +50,7 @@ public class ConfigFragment extends Fragment {
         editor = sp.edit();
 
         // Create ad view
-        AdView mAdView = (AdView) getActivity().findViewById(R.id.adView);
+        AdView mAdView = (AdView) getActivity().findViewById(R.id.adView1);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }

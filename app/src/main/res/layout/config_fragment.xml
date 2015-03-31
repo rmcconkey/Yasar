@@ -67,13 +67,11 @@
     </LinearLayout>
 
     <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
+        android:id="@+id/adView1"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
     </com.google.android.gms.ads.AdView>
 
 </LinearLayout>
