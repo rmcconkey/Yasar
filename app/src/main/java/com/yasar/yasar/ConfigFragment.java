@@ -73,7 +73,7 @@ public class ConfigFragment extends Fragment {
                 secondCB.setChecked(false);
                 thirdCB.setChecked(false);
                 if (firstCB.isChecked()) {
-                    editor.putString(Constants.RESPONCE, firstET.getText()
+                    editor.putString(Constants.RESPONSE, firstET.getText()
                             .toString());
                     editor.putString(Constants.CHECKBOX_ID, Constants.CHECKBOX_1);
                 } else {
@@ -85,7 +85,7 @@ public class ConfigFragment extends Fragment {
                 firstCB.setChecked(false);
                 thirdCB.setChecked(false);
                 if (secondCB.isChecked()) {
-                    editor.putString(Constants.RESPONCE, secondET.getText()
+                    editor.putString(Constants.RESPONSE, secondET.getText()
                             .toString());
                     editor.putString(Constants.CHECKBOX_ID, Constants.CHECKBOX_2);
                 } else {
@@ -97,7 +97,7 @@ public class ConfigFragment extends Fragment {
                 firstCB.setChecked(false);
                 secondCB.setChecked(false);
                 if (thirdCB.isChecked()) {
-                    editor.putString(Constants.RESPONCE, thirdET.getText()
+                    editor.putString(Constants.RESPONSE, thirdET.getText()
                             .toString());
                     editor.putString(Constants.CHECKBOX_ID, Constants.CHECKBOX_3);
                 } else {

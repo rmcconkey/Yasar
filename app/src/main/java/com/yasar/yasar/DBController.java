@@ -24,16 +24,16 @@ public class DBController extends SQLiteOpenHelper implements IdbController {
 	private static final String FIELD_NAME = "name";
 	private static final String FIELD_NUMBER = "number";
 
-	private DBController(Context applicationcontext) {
-		super(applicationcontext, "androidsqlite.db", null, DB_VERSION);
+	private DBController(Context applicationContext) {
+		super(applicationContext, "androidsqlite.db", null, DB_VERSION);
 	}
 
 	// Make DBController a singleton instance
 	private static DBController instance = null;
 
-	public static DBController getInstance(Context applicationcontext) {
+	public static DBController getInstance(Context applicationContext) {
 		if (instance == null)
-			instance = new DBController(applicationcontext);
+			instance = new DBController(applicationContext);
 		return instance;
 	}
 
@@ -105,7 +105,7 @@ public class DBController extends SQLiteOpenHelper implements IdbController {
 
 	// Return all entries in DB
 	public ArrayList<Contact> getAllContacts() {
-		ArrayList<Contact> list = new ArrayList<Contact>();
+		ArrayList<Contact> list = new ArrayList<>();
 		String selectQuery = "SELECT * FROM " + TABLE_NAME;
 		SQLiteDatabase database = this.getWritableDatabase();
 		Cursor cursor = database.rawQuery(selectQuery, null);
@@ -118,6 +118,7 @@ public class DBController extends SQLiteOpenHelper implements IdbController {
 				list.add(c);
 			} while (cursor.moveToNext());
 		}
+        cursor.close();
 		database.close();
 		return list;
 	}
@@ -136,6 +137,7 @@ public class DBController extends SQLiteOpenHelper implements IdbController {
 		} else {
 			return null;
 		}
+        cursor.close();
 		database.close();
 		return c;
 	}

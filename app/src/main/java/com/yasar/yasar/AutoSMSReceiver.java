@@ -16,20 +16,25 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.widget.Toast;
 
 public class AutoSMSReceiver extends BroadcastReceiver {
 
 	private String message = null;
 	private String sender = null;
 	private Bundle extras = null;
-	private SharedPreferences sp;
+	private SharedPreferences sharedPrefs;
 	private DBController controller;
 	private ArrayList<Contact> contacts;
+
+    private Context context;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
-		sp = context.getSharedPreferences(Constants.SHAREDPREFNAME, 0);
+        this.context = context;
+
+        sharedPrefs = context.getSharedPreferences(Constants.SHAREDPREFNAME, 0);
 
 		controller = DBController.getInstance(context);
 		contacts = controller.getAllContacts();
@@ -62,10 +67,15 @@ public class AutoSMSReceiver extends BroadcastReceiver {
 			} }
 
 		// Respond if there is a match and one of the checkboxes is checked
-		if (match && !sp.getString(Constants.CHECKBOX_ID, "0").equals("0")) {
-			message = sp.getString(Constants.RESPONCE, "Default responce");
+		if (match && !sharedPrefs.getString(Constants.CHECKBOX_ID, "0").equals("0")) {
+			message = sharedPrefs.getString(Constants.RESPONSE, "Default response");
 			SmsManager smsManager = SmsManager.getDefault();
 			smsManager.sendTextMessage(sender, null, message, null, null);
+
+            if (BuildConfig.DEBUG) {
+                Toast.makeText(context, "Responding to " + sender, Toast.LENGTH_LONG).show();
+            }
+
 		}
 
 	}

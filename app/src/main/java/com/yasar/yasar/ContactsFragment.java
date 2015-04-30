@@ -61,12 +61,10 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
     private String searchPhoneNumber;
 
     public static ContactsFragment newInstance() {
-        ContactsFragment fragment = new ContactsFragment();
-        return fragment;
+        return new ContactsFragment();
     }
 
-    public ContactsFragment() {
-    }
+    public ContactsFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,7 +85,7 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
                 R.id.autoCompleteTextView1);
 
         // Create adapter for AutoComplete
-        dropdownAdapter = new ArrayAdapter<String>(getActivity(),
+        dropdownAdapter = new ArrayAdapter<>(getActivity(),
                 R.layout.dropdown_item, R.id.dropdownTextView, new ArrayList<String>());
 
         // Set minimum number of chars to search
@@ -124,7 +122,7 @@ public class ContactsFragment extends Fragment implements OnItemClickListener,
     private void readContactData() {
 
         // Get the contacts from the phone ordered by their name.
-        contacts = new ArrayList<Contact>();
+        contacts = new ArrayList<>();
         ContentResolver contentResolver = getActivity().getContentResolver();
         Cursor cursor = contentResolver.query(Phone.CONTENT_URI, null, null,
                 null, Phone.DISPLAY_NAME + " ASC");
